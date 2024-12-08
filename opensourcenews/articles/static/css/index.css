@@ -1,0 +1,117 @@
+.index-intro{
+    text-align: center;
+}
+
+.categories-container {
+    overflow-x: auto; 
+    white-space: nowrap;  
+    margin: 20px 0;
+  }
+  
+.categories-list {
+    display: flex;  
+    list-style-type: none;  
+    padding: 0;
+    gap: 20px;  
+  }
+
+.category-item {
+    width: 250px;  
+    padding: 15px;  
+    box-sizing: border-box;  
+    background-color: #f8f9fa; 
+    border-radius: 8px; 
+    text-align: center;  
+    display: flex; 
+    flex-direction: column;  
+    overflow-x: scroll;
+  }
+  
+.category-item a {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+.category-item p {
+    font-size: 14px;
+    color: gray;
+    margin-top: 0;
+    word-wrap: break-word;
+    white-space: normal; 
+    line-height: 1.5; 
+  }
+
+#trending-stories {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80vw;
+}
+
+.new-posts{
+  height: 50vh;
+  width: 100%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 10px;
+  -webkit-box-shadow: 2px 2px 28px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 28px -4px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 28px -4px rgba(0,0,0,0.75);
+  display: flex;           
+  align-items: flex-start;  
+  margin-bottom: 10px;
+}
+
+.new-posts h4, .new-posts p {
+  margin: 0;
+  padding: 0;
+}
+
+.new-posts > img {
+  width: auto;            
+  height: 100%;
+  border-radius: 3px;
+  border: 2px solid gray;
+  max-width: 50%;             
+  margin-right: 20px;       
+  object-fit: cover;        
+}
+
+
+.new-posts .text-content {
+  overflow-y: auto;        
+  max-height: 100%;        
+  padding-right: 20px;            
+}
+
+.new-posts .text-content h4 {
+  font-size: 1.2em;         
+  font-weight: bold;
+  margin-bottom: 8px;       
+}
+
+.new-posts .text-content p {
+  font-size: 1em;           
+  color: #555;              
+}
+
+
+.new-posts.reverse-layout {
+  flex-direction: row-reverse;
+}
+
+.new-posts.reverse-layout img {
+  margin-right: 0;
+  margin-left: 20px;
+}
+
+@media (max-width: 780px) {
+    .categories-list {
+        display:none;
+    }
+}

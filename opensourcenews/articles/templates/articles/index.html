@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block content %}
+<div class="index-intro">
+    <h1>Welcome to Open Source News</h1>
+    <h3>Real news from real people on the ground.</h3>
+</div>
+<div class="categories-container">
+    <ul class="categories-list">
+        {% for category in categories %}
+            <li class="category-item">
+                <a href="#">{{ category.name }}</a>
+                <p>{{ category.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<div id="trending-stories">
+    {% for article in article_lists %}
+        {% if article.is_published %}
+            <a href="{% url 'single-post' article.slug %}">
+                <div class="new-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
+                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                    <div class="text-content">
+                        <p>Author: {{ article.created_by }}</p>
+                        <h4>{{ article.title }}</h4>
+                        <p>{{ article.get_excerpt }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endif %}
+    {% endfor %}
+    <div id="pag-buttons">
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'homepage/index.css' %}">
+{% endblock %}
+{% block content%}
+<div class="home-container">
+    <h2>
+  {{ categories.name|capfirst }}
+    </h2> 
+    <p>
+        {{ categories.description }}
+    </p>  
+</div>
+<div class="cat-posts">
+  {% for post in posts %}
+  {% if post.is_published == True %}
+  <div class="posts">
+  <a href="{% url 'single-post' post.slug %}">
+    <h5> {{ post.title }}</h5>
+    <p> {{ post.get_excerpt }}</p>
+  </div>
+  </a>
+  {% else %}
+   
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

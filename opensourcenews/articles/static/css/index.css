@@ -110,8 +110,34 @@
   margin-left: 20px;
 }
 
+ .article-details > h1 {
+  justify-content: center;
+  margin-bottom: 5%;
+  margin-top: 8%;
+  text-align: left;
+ }
+
+.article-details img {
+  max-height: 90%;
+  max-width: auto;
+  border: 2px solid darkgray;
+}
+
+.article-details p {
+  margin-top: 5%;
+}
 @media (max-width: 780px) {
     .categories-list {
         display:none;
     }
+}
+
+@media (max-width: 992px) {
+  .single-excerpt {
+      display:none;
+  }
+  .article-details img {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

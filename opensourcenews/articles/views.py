@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CommentForm
 from django.core.paginator import Paginator
 from .models import Article, Comment, Category
+from contributors.models import Journalist
 
 # Create your views here.
 
@@ -40,9 +41,16 @@ def category_list(request, slug):
     'categories': this_category
     })
 
-def single_post(request, slug,):
+def single_post(request, slug):
     this_post = get_object_or_404(Article, slug=slug)
     full_categories = Category.objects.all()
+    this_journalist = this_post.created_by
+    user = this_journalist.user
+    journalist_first_name = this_journalist.first_name
+    journalist_last_name = this_journalist.last_name
+    journalist_bio = this_journalist.bio
+    journalist_image = this_journalist.profile_picture.url
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -58,5 +66,10 @@ def single_post(request, slug,):
     return render(request, 'articles/single_post.html', {
         'full_categories': full_categories,
         'post': this_post,
-        'form': form
+        'form': form,
+        'journalist_image': journalist_image,
+        'journalist': user,
+        'journalist_bio': journalist_bio,
+        'first_name': journalist_first_name,
+        'last_name': journalist_last_name
     })

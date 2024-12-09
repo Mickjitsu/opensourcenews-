@@ -20,12 +20,14 @@ def index(request):
     paginator = Paginator(article_lists, 5)  
     page_number = request.GET.get('page')  
     page_obj = paginator.get_page(page_number) 
+    breaking_article = Article.objects.filter(is_breaking=True).order_by('-created_at').first()
 
     return render(request, 'articles/index.html', {
         "article_lists": article_lists, 
         "full_categories": full_categories,
         "categories": categories,
-        "page_obj": page_obj
+        "page_obj": page_obj,
+        'breaking_article': breaking_article,
     })
 
 

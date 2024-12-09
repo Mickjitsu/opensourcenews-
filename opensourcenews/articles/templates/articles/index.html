@@ -5,52 +5,95 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-<div class="index-intro">
-    <h1>Welcome to Open Source News</h1>
-    <h3>Independent, Open Sourced Journalism from around the globe.</h3>
-</div>
-<div class="categories-container">
-    <ul class="categories-list">
-        {% for category in categories %}
+    <div class="index-intro">
+        <h1>Welcome to Open Source News</h1>
+        <h3>Independent, Open Sourced Journalism from around the globe.</h3>
+    </div>
+    <div class="categories-container">
+        <ul class="categories-list">
+            {% for category in categories %}
             <li class="category-item">
                 <a href="#">{{ category.name }}</a>
                 <p>{{ category.description }}</p>
             </li>
-        {% endfor %}
-    </ul>
-</div>
-<div id="trending-stories">
-    {% for article in article_lists %}
-        {% if article.is_published %}
-            <a href="{% url 'single-post' article.slug %}">
-                <div class="new-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
-                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                    <div class="text-content">
-                        <p>Author: {{ article.created_by }}</p>
-                        <h4>{{ article.title }}</h4>
-                        <p>{{ article.get_excerpt }}</p>
-                    </div>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="trending-stories row">
+        {% if breaking_article %}
+        <h2>Breaking News:</h2>
+        <a href="{% url 'single-post' breaking_article.slug %}">
+            <div class="breaking-news new-posts">
+                <img src="{{ breaking_article.image.url }}" alt="{{ breaking_article.title }}">
+                <div class="text-content">
+                    <h2>{{ breaking_article.title }}</h2>
+                    <p>{{ breaking_article.short_description }}</p>
                 </div>
-            </a>
+            </div>
+        </a>
         {% endif %}
-    {% endfor %}
+        {% for category in full_categories %}
+        {% if category.homepage %}
+        <div class="category-section">
+            <h3>{{ category.name }}</h3>
+            <div class="row">
+                {% for article in category.articles.all|slice:":2" %}
+                    {% if article.is_published %}
+                        <div class="col-md-4 mb-4"> <!-- Two columns per row -->
+                            <a href="{% url 'single-post' article.slug %}">
+                                <div class="new-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
+                                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                                    <div class="text-content">
+                                        <p>Author: {{ article.created_by }}</p>
+                                        <h4>{{ article.title }}</h4>
+                                        <p>{{ article.get_excerpt }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <!--
+        <div class='row'>
+        {% for article in article_lists %}
+        {% if article.is_published %}
+            <div class="col-md-6 mb-6">
+                <a href="{% url 'single-post' article.slug %}">
+                    <div class="new-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                        <div class="text-content">
+                            <p>Author: {{ article.created_by }}</p>
+                            <h4>{{ article.title }}</h4>
+                            <p>{{ article.get_excerpt }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+-->
+    </div>
     <div id="pag-buttons">
-        <div class="pagination">
+        <div class="pagination justify-content-center">
             <span class="step-links">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
                 <span class="current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
                 {% endif %}
             </span>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}

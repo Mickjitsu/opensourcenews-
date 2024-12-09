@@ -8,6 +8,7 @@ from django.utils.text import slugify
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+    homepage = models.BooleanField(default=False)
     slug = models.SlugField(max_length=100, unique=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -29,6 +30,8 @@ class Article(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     image = models.ImageField(upload_to='articles/', blank=False, null=False)
     is_published = models.BooleanField(default=False)
+    is_breaking = models.BooleanField(default=False)
+    short_description = models.TextField(max_length=300)
 
 
     def get_excerpt(self):

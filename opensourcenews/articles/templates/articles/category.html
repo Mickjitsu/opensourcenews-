@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'homepage/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 {% block content%}
 <div class="home-container">
@@ -13,15 +13,19 @@
         {{ categories.description }}
     </p>  
 </div>
-<div class="cat-posts">
+<div class="cat-posts column container">
   {% for post in posts %}
   {% if post.is_published == True %}
-  <div class="posts">
   <a href="{% url 'single-post' post.slug %}">
-    <h5> {{ post.title }}</h5>
-    <p> {{ post.get_excerpt }}</p>
-  </div>
-  </a>
+    <div class="new-posts single-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+
+        <div class="text-content">
+            <h6>{{ post.title }}</h6>
+            <p>{{ post.short_description }}</p>
+        </div>
+    </div>
+</a>
   {% else %}
    
   {% endif %}

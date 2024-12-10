@@ -34,8 +34,8 @@
         {% endif %}
         {% for category in full_categories %}
         {% if category.homepage %}
-        <div class="category-section">
-            <h3 class=>{{ category.name }}</h3>
+        <div class="category-section border-top border-1 border-dark m-3">
+            <h3>{{ category.name }}</h3>
             <div class="new-posts-scroll">
                 {% for article in category.articles.all|slice:":5" %}
                     {% if article.is_published and not article.is_breaking %}
@@ -43,9 +43,9 @@
                             <a href="{% url 'single-post' article.slug %}">
                                 <div class="new-posts new-posts-secondary">
                                     <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                                    <div class="text-content">
+                                    <div class="text-content m-3">
                                         <h4>{{ article.title }}</h4>
-                                        <p>{{ article.get_excerpt }}</p>
+                                        <p>{{ article.short_description }}</p>
                                     </div>
                                 </div>
                             </a>

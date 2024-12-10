@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 from pathlib import Path
-import os
 import dj_database_url
+import os
 if os.path.isfile('env.py'):
     import env
 
@@ -28,11 +28,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-mickjitsu-opensourcenew-bv2o6elka69.ws.codeinstitute-ide.net',
+ALLOWED_HOSTS = ['8000-mickjitsu-opensourcenew-23zhy7ynqgk.ws.codeinstitute-ide.net',
 '.herokuapp.com',]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-mickjitsu-opensourcenew-bv2o6elka69.ws.codeinstitute-ide.net'
+    'https://8000-mickjitsu-opensourcenew-23zhy7ynqgk.ws.codeinstitute-ide.net'
 ]
 
 # Application definition

@@ -36,15 +36,14 @@
         {% if category.homepage %}
         <div class="category-section">
             <h3>{{ category.name }}</h3>
-            <div class="row">
-                {% for article in category.articles.all|slice:":2" %}
-                    {% if article.is_published %}
+            <div class="new-posts-scroll">
+                {% for article in category.articles.all|slice:":5" %}
+                    {% if article.is_published and not article.is_breaking %}
                         <div class="col-md-4 mb-4"> <!-- Two columns per row -->
                             <a href="{% url 'single-post' article.slug %}">
-                                <div class="new-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
+                                <div class="new-posts new-posts-secondary">
                                     <img src="{{ article.image.url }}" alt="{{ article.title }}">
                                     <div class="text-content">
-                                        <p>Author: {{ article.created_by }}</p>
                                         <h4>{{ article.title }}</h4>
                                         <p>{{ article.get_excerpt }}</p>
                                     </div>
@@ -78,22 +77,6 @@
     </div>
 -->
     </div>
-    <div id="pag-buttons">
-        <div class="pagination justify-content-center">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
-    </div>
+    
 </div>
 {% endblock %}

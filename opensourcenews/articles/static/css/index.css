@@ -109,16 +109,16 @@
 }
 
 .new-posts-scroll::-webkit-scrollbar {
-  height: 8px; /* Horizontal scrollbar height */
+  height: 8px; 
 }
 
 .new-posts-scroll::-webkit-scrollbar-thumb {
-  background: #888; /* Scrollbar thumb color */
-  border-radius: 4px; /* Rounded edges */
+  background: #888; 
+  border-radius: 4px; 
 }
 
 .new-posts-scroll::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Darker scrollbar thumb on hover */
+  background: #555; 
 }
 
 .new-posts .text-content {     
@@ -188,9 +188,13 @@
 }
 
 .single-excerpt {
-  border: 1px solid gray;
   background-color: rgb(201, 197, 197, 0.7);
   height: 30%;
+  overflow: scroll;
+}
+
+.single-excerpt img:hover {
+  filter: grayscale(0%); 
 }
 
 .single-excerpt > h6 {
@@ -198,9 +202,11 @@
 }
 .single-excerpt > img {
   max-height: 250px;
-  width: auto;
+  max-width: auto;
   border-radius: 30%;
   margin-top: 20px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease; 
 }
 
 @media (max-width: 780px) {

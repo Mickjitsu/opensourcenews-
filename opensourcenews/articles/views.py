@@ -6,7 +6,6 @@ from .forms import CommentForm
 from django.core.paginator import Paginator
 from .models import Article, Comment, Category
 from contributors.models import Journalist
-
 # Create your views here.
 
 def get_date(post):
@@ -75,3 +74,39 @@ def single_post(request, slug):
         'first_name': journalist_first_name,
         'last_name': journalist_last_name
     })
+
+@login_required
+@login_required
+def edit_comment(request, comment_id):
+
+    comment = get_object_or_404(Comment, id=comment_id)
+    
+    
+    if comment.author != request.user:
+        return redirect('single-post', slug=comment.article.slug) 
+    
+   
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()  
+            return redirect('single-post', slug=comment.article.slug)  
+    else:
+        form = CommentForm(instance=comment)  
+
+    return render(request, 'articles/edit_comment.html', {
+        'form': form,
+        'comment': comment,
+    })
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    
+    if comment.author != request.user:
+        return redirect('single-post', slug=comment.article.slug)  
+
+    comment.delete()  
+
+    return redirect('single-post', slug=comment.article.slug) 

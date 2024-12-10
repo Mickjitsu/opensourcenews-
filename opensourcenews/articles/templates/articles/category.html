@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 {% block content%}
+<div class="container">
 <div class="home-container">
     <h2>
   {{ categories.name|capfirst }}
@@ -13,11 +14,23 @@
         {{ categories.description }}
     </p>  
 </div>
-<div class="cat-posts column container">
+<div class="cat-posts row">
   {% for post in posts %}
   {% if post.is_published == True %}
+  <div class="col-12 col-md-6 col-sm-6"> <!-- Two columns per row -->
+    <a href="{% url 'single-post' post.slug %}">
+        <div class="new-posts new-posts-secondary">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            <div class="text-content m-3">
+                <h4>{{ post.title }}</h4>
+                <p>{{ post.short_description }}</p>
+            </div>
+        </div>
+    </a>
+</div>
+  <!--
   <a href="{% url 'single-post' post.slug %}">
-    <div class="new-posts single-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
+    <div class="new-posts">
         <img src="{{ post.image.url }}" alt="{{ post.title }}">
 
         <div class="text-content">
@@ -26,9 +39,11 @@
         </div>
     </div>
 </a>
+-->
   {% else %}
    
   {% endif %}
   {% endfor %}
+</div>
 </div>
 {% endblock %}

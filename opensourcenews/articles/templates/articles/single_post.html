@@ -8,50 +8,51 @@
 {% block content %}
 <div class="container">
     <div class="article-details">
-            <h1> {{ post.title }} </h1>
-            {% if journalist_image and journalist_bio %}
-            <div class="row">
-                <div class="col-lg-8 col-md-12 col-sm-12">
-                   <img src="{{ post.image.url }}" alt="{{ article.title }}" class="img-fluid">
-                   <p> {{post.get_excerpt_less}} </p>
-               </div>
-               <div class="col-lg-4 single-excerpt text-center mb-3">
-                    <h6>Author: {{ first_name}} {{ last_name }}</h6>
-                   <img src="{{ journalist_image }}" alt="" class="img-fluid mb-3">
-                   <p> {{ journalist_bio }}</p>
-               </div>
-           </div>
-           <p> {{ post.content|linebreaksbr }}</p>
+        <h1>{{ post.title }}</h1>
+        {% if journalist_image and journalist_bio %}
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <img src="{{ post.image.url }}" alt="{{ article.title }}" class="img-fluid">
+                <p>{{ post.short_description }}</p>
+            </div>
+            <div class="col-lg-4 single-excerpt text-center mb-3">
+                <h6>Author: {{ first_name }} {{ last_name }}</h6>
+                <img src="{{ journalist_image }}" alt="" class="img-fluid mb-3">
+                <p>{{ journalist_bio }}</p>
+            </div>
+        </div>
+        <p>{{ post.content|linebreaksbr }}</p>
         {% else %}
-            <div class="row">
-                <div class="col-lg-8 col-md-12 col-sm-12">
-                   <img src="{{ post.image.url }}" alt="{{ article.title }}" class="img-fluid">
-               </div>
-               <div class="col-lg-3 single-excerpt">
-                   <h4> {{ post.get_excerpt_less }} 
-                   </h4>
-                   <p> Read more below</p>
-               </div>
-           </div>
-        <p> {{ post.content|linebreaksbr }}</p>
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <img src="{{ post.image.url }}" alt="{{ article.title }}" class="img-fluid">
+            </div>
+        </div>
+        <p>{{ post.content|linebreaksbr }}</p>
         {% endif %}
     </div>
 
-<div class="comment-section">
-    <!-- Display existing comments -->
-    <h3>Comments:</h3>
-    {% for comment in post.comments.all %}
+    <div class="comment-section">
+        <!-- Display existing comments -->
+        <h3>Comments:</h3>
+        {% for comment in post.comments.all %}
         <div class="comment border p-3 mb-3 rounded">
             <p><strong>{{ comment.author.username }}</strong> said:</p>
             <p>{{ comment.content }}</p>
             <p><small class="text-muted">Posted on {{ comment.created_at }}</small></p>
-        </div>
-    {% empty %}
-        <p>No comments yet.</p>
-    {% endfor %}
 
-    <!-- Comment form -->
-    {% if user.is_authenticated %}
+            <!-- Edit and Delete buttons -->
+            {% if comment.author == user %}
+            <a href="{% url 'edit-comment' comment.id %}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{% url 'delete-comment' comment.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</a>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No comments yet.</p>
+        {% endfor %}
+
+        <!-- Comment form -->
+        {% if user.is_authenticated %}
         <h3>Post a Comment:</h3>
         <div class="comment-form border p-3 rounded">
             <form method="POST" enctype="multipart/form-data">
@@ -60,9 +61,9 @@
                 <button type="submit" class="btn btn-primary">Submit Comment</button>
             </form>
         </div>
-    {% else %}
+        {% else %}
         <p>Please <a href="{% url 'account_login' %}">log in</a> to post a comment.</p>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

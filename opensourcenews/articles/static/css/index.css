@@ -121,6 +121,9 @@
   background: #555; 
 }
 
+.text-content {
+  overflow-y: scroll;
+}
 .new-posts .text-content {     
   max-height: 100%;        
   padding-right: 20px;          
@@ -207,6 +210,25 @@
   margin-top: 20px;
   filter: grayscale(100%);
   transition: filter 0.3s ease; 
+}
+
+.headlines {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 1rem; /* Add space between the articles */
+  padding: 1rem 0; /* Optional padding for better spacing */
+  scroll-behavior: smooth; /* Smooth scrolling effect */
+  width: 100%;
+}
+
+.headline-posts {
+  height: 300px
+}
+
+.category-posts {
+  border-bottom: 1px solid black;
+  margin-top: 10px;
 }
 
 @media (max-width: 780px) {

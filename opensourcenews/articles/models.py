@@ -31,6 +31,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='articles/', blank=False, null=False)
     is_published = models.BooleanField(default=False)
     is_breaking = models.BooleanField(default=False)
+    is_headline = models.BooleanField(default=False)
     short_description = models.TextField(max_length=300)
 
 

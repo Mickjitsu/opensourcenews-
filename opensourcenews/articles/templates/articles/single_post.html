@@ -9,30 +9,16 @@
 <div class="container">
     <div class="article-details">
         <h1>{{ post.title }}</h1>
-        {% if journalist_image and journalist_bio %}
         <div class="row">
-            <div class="col-lg-8 col-md-12 col-sm-12">
-                <img src="{{ post.image.url }}" alt="{{ article.title }}" class="img-fluid">
-                <p>{{ post.short_description }}</p>
-            </div>
-            <div class="col-lg-4 single-excerpt text-center mb-3">
-                <h6>Author: {{ first_name }} {{ last_name }}</h6>
-                <img src="{{ journalist_image }}" alt="" class="img-fluid mb-3">
-                <p>{{ journalist_bio }}</p>
-            </div>
-        </div>
-        <p>{{ post.content|linebreaksbr }}</p>
-        {% else %}
-        <div class="row">
-            <div class="col-lg-8 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
                 <img src="{{ post.image.url }}" alt="{{ article.title }}" class="img-fluid">
             </div>
         </div>
         <p>{{ post.content|linebreaksbr }}</p>
-        {% endif %}
     </div>
 
-    <div class="comment-section">
+    </div>
+    <div class="comment-section container">
         <!-- Display existing comments -->
         <h3>Comments:</h3>
         {% for comment in post.comments.all %}

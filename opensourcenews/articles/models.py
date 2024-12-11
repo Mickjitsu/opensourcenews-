@@ -34,7 +34,6 @@ class Article(models.Model):
     is_headline = models.BooleanField(default=False)
     short_description = models.TextField(max_length=300)
 
-
     def get_excerpt(self):
         return Truncator(self.content).chars(400)
     
@@ -64,4 +63,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.author.username} on {self.article.title}"
-

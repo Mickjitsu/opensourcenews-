@@ -21,3 +21,9 @@ h1, h2, h3, h4, h5, h6 {
 footer {
     height: 200px;
 }
+
+.button-icon {
+    color: #E0E0E0;
+    font-size: 30px;
+    padding-top: 10px;
+}

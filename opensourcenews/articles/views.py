@@ -35,11 +35,22 @@ def category_list(request, slug):
     full_categories = Category.objects.all()
     posts = Article.objects.all()
     this_category = next(cat for cat in categories if cat.slug == slug)
-    relevant_posts = posts.filter(category=this_category)
+    relevant_posts = posts.filter(category=this_category).order_by('-created_at')
+    
+    # Fetch headline posts
+    is_headline = relevant_posts.filter(is_headline=True) if request.GET.get('page') in [None, '1'] else []
+
+    # Pagination
+    paginator = Paginator(relevant_posts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, 'articles/category.html', {
-    'full_categories': full_categories,
-    'posts': relevant_posts,    
-    'categories': this_category
+        'full_categories': full_categories,
+        'posts': relevant_posts,
+        'categories': this_category,
+        'headlines': is_headline,
+        "page_obj": page_obj
     })
 
 def single_post(request, slug):
@@ -50,7 +61,6 @@ def single_post(request, slug):
     journalist_first_name = this_journalist.first_name
     journalist_last_name = this_journalist.last_name
     journalist_bio = this_journalist.bio
-    journalist_image = this_journalist.profile_picture.url
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -68,11 +78,10 @@ def single_post(request, slug):
         'full_categories': full_categories,
         'post': this_post,
         'form': form,
-        'journalist_image': journalist_image,
         'journalist': user,
         'journalist_bio': journalist_bio,
         'first_name': journalist_first_name,
-        'last_name': journalist_last_name
+        'last_name': journalist_last_name,
     })
 
 @login_required

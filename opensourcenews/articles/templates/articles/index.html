@@ -13,8 +13,10 @@
         <ul class="categories-list">
             {% for category in categories %}
             <li class="category-item">
-                <a href="#">{{ category.name }}</a>
+                <a href="{% url 'category-list' category.slug %}">
+                <h6>{{ category.name }}</h6>
                 <p>{{ category.description }}</p>
+                </a>
             </li>
             {% endfor %}
         </ul>
@@ -38,45 +40,25 @@
             <h3>{{ category.name }}</h3>
             <div class="new-posts-scroll">
                 {% for article in category.articles.all|slice:":5" %}
-                    {% if article.is_published and not article.is_breaking %}
-                        <div class="col-12 col-md-6 col-sm-6"> <!-- Two columns per row -->
-                            <a href="{% url 'single-post' article.slug %}">
-                                <div class="new-posts new-posts-secondary">
-                                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                                    <div class="text-content m-3">
-                                        <h4>{{ article.title }}</h4>
-                                        <p>{{ article.short_description }}</p>
-                                    </div>
-                                </div>
-                            </a>
+                {% if article.is_published and not article.is_breaking %}
+                <div class="col-12 col-md-6 col-sm-6"> <!-- Two columns per row -->
+                    <a href="{% url 'single-post' article.slug %}">
+                        <div class="new-posts new-posts-secondary">
+                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                            <div class="text-content m-3">
+                                <h4>{{ article.title }}</h4>
+                                <p>{{ article.short_description }}</p>
+                            </div>
                         </div>
-                    {% endif %}
+                    </a>
+                </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
         {% endif %}
         {% endfor %}
-        <!--
-        <div class='row'>
-        {% for article in article_lists %}
-        {% if article.is_published %}
-            <div class="col-md-6 mb-6">
-                <a href="{% url 'single-post' article.slug %}">
-                    <div class="new-posts {% if forloop.counter|divisibleby:2 %}reverse-layout{% endif %}">
-                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
-                        <div class="text-content">
-                            <p>Author: {{ article.created_by }}</p>
-                            <h4>{{ article.title }}</h4>
-                            <p>{{ article.get_excerpt }}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        {% endif %}
-        {% endfor %}
     </div>
--->
-    </div>
-    
+
 </div>
 {% endblock %}

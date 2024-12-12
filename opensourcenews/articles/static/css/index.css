@@ -1,7 +1,10 @@
+/* Index HTML */
 .index-intro{
     text-align: center;
 }
 
+
+/* General styling for a tags*/
 a {
   text-decoration: none;
   color: #F5F5F5; 
@@ -12,22 +15,14 @@ a:hover {
   color: #E0E0E0; 
 }
 
-.categories-container {
-    overflow-x: auto; 
-    white-space: nowrap;  
-    margin: 20px 0;
-  }
-  
-.categories-list {
-    display: flex;  
-    list-style-type: none;  
-    padding: 0;
-    gap: 20px;  
 
-  }
+/*Category scrollable menu at top of index page*/
+.category-item:hover {
+  background-color: #3A3A3A;
+}
 
 .category-item {
-    width: 250px;  
+    min-width: 300px;  
     padding: 15px;  
     box-sizing: border-box;  
     background-color: #1E3A5F;
@@ -35,35 +30,20 @@ a:hover {
     text-align: center;  
     display: flex; 
     flex-direction: column;  
-    overflow-x: scroll;
+    text-align: center;
   }
-  
-.category-item a {
-    font-size: 18px;
-    color: #F5F5F5;
-    font-weight: bold;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-.category-item p {
+
+  .category-item p {
     font-size: 14px;
     color: #F5F5F5;
     margin-top: 0;
     word-wrap: break-word;
     white-space: normal; 
     line-height: 1.5; 
+
   }
 
-#trending-stories {
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80vw;
-}
-
+/*General styling for all posts visible on main and category pages*/
 .new-posts{
   height: 50vh;
   width: 100%;
@@ -79,6 +59,10 @@ a:hover {
   margin-bottom: 10px;
   background-color: #3A3A3A;
   padding: 10px;
+}
+
+.new-posts:hover {
+  background-color: #1E3A5F;
 }
 
 .new-posts > a {
@@ -103,6 +87,7 @@ a:hover {
   object-fit: cover;       
 }
 
+/*Additional styling for posts that were not breaking news*/
 .new-posts-secondary {
   display: flex;
   flex-direction: column;
@@ -142,6 +127,7 @@ a:hover {
   background: #555; 
 }
 
+/*Enables scrolling directly in post divs for text content*/
 .text-content {
   overflow-y: scroll;
 }
@@ -160,17 +146,72 @@ a:hover {
   font-size: 1em;                       
 }
 
+/*Category.html*/
+.categories-container {
+  overflow-y: auto; 
+  white-space: nowrap;  
+  margin: 20px 0;
+}
 
-.article-details > h1 {
-  justify-content: center;
-  margin-bottom: 5%;
-  margin-top: 8%;
-  text-align: left;
- }
+.categories-list {
+  display: flex;  
+  list-style-type: none;  
+  padding: 0;
+  gap: 20px;  
+  overflow-x: scroll;
+}
 
 .breaking-news {
   margin-bottom: 50px;
 }
+.headlines {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; 
+  gap: 1rem; 
+  padding: 1rem 0; 
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.headline-heading{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.headline-posts {
+  height: 300px
+}
+
+.category-posts {
+  border-bottom: 1px solid black;
+  margin-top: 10px;
+}
+
+.category-heading {
+  align-items: center;
+  text-align: center;
+}
+
+#pag-buttons {
+  align-items: center;
+  color: white;
+  font-size: large;
+}
+
+.pagination{
+  display:flex;
+  justify-content: center;
+}
+
+/*Styling for single post pages/articles*/
+.article-details > h1 {
+  justify-content: center;
+  margin-bottom: 5%;
+  margin-top: 2%;
+  text-align: left;
+ }
+
 
 .article-details img {
   height: auto;
@@ -198,49 +239,12 @@ a:hover {
   margin-bottom: 10px;
 }
 
-.img-div {
-  min-width: 200px;
-}
-
-.single-excerpt {
-  background-color: rgb(201, 197, 197, 0.7);
-  height: 30%;
-  overflow: scroll;
-}
-
-.single-excerpt img:hover {
-  filter: grayscale(0%); 
-}
-
-.single-excerpt > h6 {
-  margin-top: 10px;
-}
-.single-excerpt > img {
-  max-height: 250px;
-  max-width: auto;
-  border-radius: 30%;
-  margin-top: 20px;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease; 
-}
-
-.headlines {
+/* Make all auth pages centred*/
+.allauth {
   display: flex;
-  flex-direction: row;
-  overflow-x: auto; 
-  gap: 1rem; 
-  padding: 1rem 0; 
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-.headline-posts {
-  height: 300px
-}
-
-.category-posts {
-  border-bottom: 1px solid black;
-  margin-top: 10px;
+  flex-direction: column;
+  margin-bottom: 20vh;
+  color: white;
 }
 
 @media (max-width: 780px) {

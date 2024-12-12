@@ -1,0 +1,29 @@
+body {
+    background-color: #1C1C1C;
+}
+
+p {
+    color: #F5F5F5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #E0E0E0
+}
+
+.nav-background {
+    background-color: #243B55;
+}
+
+.dropdown-menu{
+    background-color: #243B55 ;
+}
+
+footer {
+    height: 200px;
+}
+
+.button-icon {
+    color: #E0E0E0;
+    font-size: 30px;
+    padding-top: 10px;
+}

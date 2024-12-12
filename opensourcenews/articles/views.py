@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import CommentForm
 from django.core.paginator import Paginator
-from .models import Article, Comment, Category
+from .models import Article, Comment, Category, Vote
 from contributors.models import Journalist
 # Create your views here.
 
@@ -110,3 +110,59 @@ def delete_comment(request, comment_id):
     comment.delete()  
 
     return redirect('single-post', slug=comment.article.slug) 
+
+@login_required
+def upvote_comment(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    user = request.user
+
+    # Check if the user has already voted
+    existing_vote = Vote.objects.filter(user=user, comment=comment).first()
+
+    if existing_vote:
+        if existing_vote.vote_type == 'downvote':
+            # Change from downvote to upvote
+            existing_vote.vote_type = 'upvote'
+            existing_vote.save()
+    else:
+        # Create a new vote if none exists
+        Vote.objects.create(user=user, comment=comment, vote_type='upvote')
+
+    # Update upvotes and downvotes count
+    upvotes = comment.votes.filter(vote_type='upvote').count()
+    downvotes = comment.votes.filter(vote_type='downvote').count()
+
+    # Save the updated vote counts to the comment
+    comment.upvotes = upvotes
+    comment.downvotes = downvotes
+    comment.save()
+
+    return JsonResponse({'upvotes': upvotes, 'downvotes': downvotes})
+
+@login_required
+def downvote_comment(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    user = request.user
+
+    # Check if the user has already voted
+    existing_vote = Vote.objects.filter(user=user, comment=comment).first()
+
+    if existing_vote:
+        if existing_vote.vote_type == 'upvote':
+            # Change from upvote to downvote
+            existing_vote.vote_type = 'downvote'
+            existing_vote.save()
+    else:
+        # Create a new vote if none exists
+        Vote.objects.create(user=user, comment=comment, vote_type='downvote')
+
+    # Update upvotes and downvotes count
+    upvotes = comment.votes.filter(vote_type='upvote').count()
+    downvotes = comment.votes.filter(vote_type='downvote').count()
+
+    # Save the updated vote counts to the comment
+    comment.upvotes = upvotes
+    comment.downvotes = downvotes
+    comment.save()
+
+    return JsonResponse({'upvotes': upvotes, 'downvotes': downvotes})

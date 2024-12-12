@@ -26,7 +26,13 @@
             <p><strong>{{ comment.author.username }}</strong> said:</p>
             <p>{{ comment.content }}</p>
             <p><small class="text-muted">Posted on {{ comment.created_at }}</small></p>
-
+            {% if user.is_authenticated %}
+            <div class="vote-container">
+                <button class="upvote-comment" data-comment-id="{{ comment.id }}">Upvote</button>
+                <button class="downvote-comment" data-comment-id="{{ comment.id }}">Downvote</button>
+                <p>Upvotes: <span class="upvotes-count">{{ comment.upvotes }}</span> | Downvotes: <span class="downvotes-count">{{ comment.downvotes }}</span></p>
+            </div>
+            {% endif %}
             <!-- Edit and Delete buttons -->
             {% if comment.author == user %}
             <a href="{% url 'edit-comment' comment.id %}" class="btn btn-warning btn-sm">Edit</a>

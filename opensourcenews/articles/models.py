@@ -60,6 +60,31 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     edited = models.BooleanField(default=False)
+    upvotes = models.PositiveIntegerField(default=0)
+    downvotes = models.PositiveIntegerField(default=0)
+    
+    def get_upvotes_count(self):
+        return Vote.objects.filter(comment=self, vote_type='upvote').count()
+
+    def get_downvotes_count(self):
+        return Vote.objects.filter(comment=self, vote_type='downvote').count()
 
     def __str__(self):
         return f"Comment by {self.author.username} on {self.article.title}"
+
+class Vote(models.Model):
+    VOTE_CHOICES = [
+        ('upvote', 'Upvote'),
+        ('downvote', 'Downvote')
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # User who voted
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='votes')  # Associated comment
+    vote_type = models.CharField(max_length=8, choices=VOTE_CHOICES)  # Type of vote
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        # Ensures that a user can only vote once per comment
+        unique_together = ('user', 'comment')
+
+    def __str__(self):
+        return f"{self.user.username} voted {self.vote_type} on comment {self.comment.id}"

@@ -26,7 +26,7 @@
         <h2>Breaking News:</h2>
         <a href="{% url 'single-post' breaking_article.slug %}">
             <div class="breaking-news new-posts">
-                <img src="{{ breaking_article.image.url }}" alt="{{ breaking_article.title }}">
+                <img src="{{ MEDIA_URL }}{{ breaking_article.image.url }}" alt="{{ breaking_article.title }}">
                 <div class="text-content">
                     <h2>{{ breaking_article.title }}</h2>
                     <p>{{ breaking_article.short_description }}</p>
@@ -44,7 +44,7 @@
                 <div class="col-12 col-md-6 col-sm-6"> <!-- Two columns per row -->
                     <a href="{% url 'single-post' article.slug %}">
                         <div class="new-posts new-posts-secondary">
-                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                            <img src="{{ article.image.url}}" alt="{{ article.title }}">
                             <div class="text-content m-3">
                                 <h4>{{ article.title }}</h4>
                                 <p>{{ article.short_description }}</p>

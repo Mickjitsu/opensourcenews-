@@ -157,23 +157,8 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',  # Add django-allauth backend
 )
 
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# AWS Credentials and Configuration
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')  # Example: 'us-east-1'
-AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with the same name
-AWS_DEFAULT_ACL = None  # Ensure proper permissions
-AWS_S3_FILE_OVERWRITE = False  # Ensure files are not overwritten unnecessarily
-AWS_DEFAULT_ACL = 'public-read' 
-AWS_QUERYSTRING_AUTH = False
-#MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/media/"
-MEDIA_URL = f"https://opensourcenewsmedia.s3.eu-north-1.amazonaws.com/media/"
-
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGIN_REDIRECT_URL = '/' 
